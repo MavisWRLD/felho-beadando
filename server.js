@@ -18,8 +18,8 @@ const app = express();
 const PORT = process.env.PORT || 443; // Use 443 for HTTPS
 
 const options = {
-  key: fs.readFileSync(process.env.SSL_KEY_PATH || './ssl/privatekey.pem'),
-  cert: fs.readFileSync(process.env.SSL_CERT_PATH || './ssl/certificate.pem')
+  key: fs.readFileSync(process.env.SSL_KEY_PATH || './ssl/live/privkey.pem'),
+  cert: fs.readFileSync(process.env.SSL_CERT_PATH || './ssl/live/cert.pem')
 };
 
 // Middleware
