@@ -659,4 +659,19 @@ textarea.form-control {
     .modal.active {
         padding: var(--space-16);
     }
+
+    .pizza-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.pizza-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 }

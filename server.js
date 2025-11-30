@@ -58,14 +58,16 @@ async function initializeDatabase() {
   try {
     // Pizzák táblázat
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS pizzas (
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        name VARCHAR(100) NOT NULL,
-        description TEXT,
-        price DECIMAL(10, 2) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
+  CREATE TABLE IF NOT EXISTS pizzas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    image_filename VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+;
 
     // Rendelések táblázat
     await connection.query(`
@@ -114,33 +116,35 @@ async function seedPizzas() {
   const connection = await pool.getConnection();
   try {
     const pizzas = [
-      { name: 'Margherita', description: 'Paradicsomszósz, mozzarella, bazsalikom', price: 1200 },
-      { name: 'Quattro Formaggi', description: 'Négy fajta sajt', price: 1500 },
-      { name: 'Pepperoni', description: 'Paradicsomszósz, mozzarella, pepperoni', price: 1300 },
-      { name: 'Carnivore', description: 'Szalonna, sonka, kolbász, hagyma', price: 1600 },
-      { name: 'Vegetariana', description: 'Paradicsom, paprika, gomba, zöldségek', price: 1250 },
-      { name: 'Prosciutto e Rucola', description: 'Prosciutto, rukkola, parmezan', price: 1450 },
-      { name: 'BBQ Chicken', description: 'BBQ szósz, csirke, lilahagyma, bacon', price: 1400 },
-      { name: 'Quattro Stagioni', description: 'Négy évszak: szalonna, gomba, tojás, olajbogyó', price: 1550 },
-      { name: 'Calzone', description: 'Zárható: ricotta, sonka, mozzarella', price: 1350 },
-      { name: 'Spicy Diavola', description: 'Csípős: pepperoni, chilipaprika, garlic', price: 1300 },
-      { name: 'Seafood Deluxe', description: 'Garnéla, kagyló, tintahal, olívaolaj', price: 1800 },
-      { name: 'Mushroom Paradise', description: 'Kiváló gombák', price: 1280 },
-      { name: 'Hawaiian Surprise', description: 'Sonka, ananász, szalonna', price: 1400 },
-      { name: 'Truffle Deluxe', description: 'Fehér szarvasgomba, prosciutto, parmezan', price: 2000 },
-      { name: 'Bianca', description: 'Fehér szósz, mozzarella, ricotta, spinát', price: 1150 }
+      { name: 'Margherita', description: 'Paradicsomszósz, mozzarella, bazsalikom', price: 1200, image: '1. Margherita.png' },
+      { name: 'Quattro Formaggi', description: 'Négy fajta sajt', price: 1500, image: '2. Quattro Formaggi.png' },
+      { name: 'Pepperoni', description: 'Paradicsomszósz, mozzarella, pepperoni', price: 1300, image: '3. Pepperoni.png' },
+      { name: 'Carnivore', description: 'Szalonna, sonka, kolbász, hagyma', price: 1600, image: '4. Carnivore.png' },
+      { name: 'Vegetariana', description: 'Paradicsom, paprika, gomba, zöldségek', price: 1250, image: '5. Vegetariana.png' },
+      { name: 'Prosciutto e Rucola', description: 'Prosciutto, rukkola, parmezan', price: 1450, image: '6. Prosciutto e Rucola.png' },
+      { name: 'BBQ Chicken', description: 'BBQ szósz, csirke, lilahagyma, bacon', price: 1400, image: '7. BBQ Chicken.png' },
+      { name: 'Quattro Stagioni', description: 'Négy évszak: szalonna, gomba, tojás, olajbogyó', price: 1550, image: '8. Quattro Stagioni.png' },
+      { name: 'Calzone', description: 'Zárható: ricotta, sonka, mozzarella', price: 1350, image: '9. Calzone.png' },
+      { name: 'Spicy Diavola', description: 'Csípős: pepperoni, chilipaprika, garlic', price: 1300, image: '10. Spicy Diavola.png' },
+      { name: 'Seafood Deluxe', description: 'Garnéla, kagyló, tintahal, olívaolaj', price: 1800, image: '11. Seafood Deluxe.png' },
+      { name: 'Mushroom Paradise', description: 'Kiváló gombák', price: 1280, image: '12. Mushroom Paradise.png' },
+      { name: 'Hawaiian Surprise', description: 'Sonka, ananász, szalonna', price: 1400, image: '13. Hawaiian Surprise.png' },
+      { name: 'Truffle Deluxe', description: 'Fehér szarvasgomba, prosciutto, parmezan', price: 2000, image: '14. Truffle Deluxe.png' },
+      { name: 'Bianca', description: 'Fehér szósz, mozzarella, ricotta, spinát', price: 1150, image: '15. Bianca.png' }
     ];
 
     // Ellenőrzés: vannak-e már pizzák
+
+
     const [rows] = await connection.query('SELECT COUNT(*) as count FROM pizzas');
     if (rows[0].count === 0) {
       for (const pizza of pizzas) {
         await connection.query(
-          'INSERT INTO pizzas (name, description, price) VALUES (?, ?, ?)',
-          [pizza.name, pizza.description, pizza.price]
+          'INSERT INTO pizzas (name, description, price, image_filename) VALUES (?, ?, ?, ?)',
+          [pizza.name, pizza.description, pizza.price, pizza.image]
         );
       }
-      console.log('✓ 15 pizza feltöltve az adatbázisba');
+      console.log('✓ Pizzák feltöltve képfájl nevekkel');
     }
   } catch (error) {
     console.error('Pizza seed hiba:', error);
@@ -148,6 +152,7 @@ async function seedPizzas() {
     connection.release();
   }
 }
+
 
 // ============================================
 // EMAIL Konfiguráció (Nodemailer)
@@ -176,6 +181,31 @@ app.get('/api/pizzas', async (req, res) => {
   } catch (error) {
     console.error('Pizza lista hiba:', error);
     res.status(500).json({ error: 'Adatbázis hiba' });
+  }
+});
+
+// GET: Presigned URL lekérése S3-ból pizza képekhez
+app.get('/api/get-image-url', async (req, res) => {
+  try {
+    const { filename } = req.query;
+    
+    if (!filename) {
+      return res.status(400).json({ error: 'Filename paraméter kötelező' });
+    }
+
+    const params = {
+      Bucket: S3_BUCKET,
+      Key: `pizzas/${filename}`,
+      Expires: 3600 // 1 óra lejárat
+    };
+
+    // Presigned URL generálása AWS SDK v2-vel
+    const url = s3.getSignedUrl('getObject', params);
+    
+    res.json({ url: url });
+  } catch (error) {
+    console.error('Presigned URL generálás hiba:', error);
+    res.status(500).json({ error: 'Nem sikerült az URL generálása', details: error.message });
   }
 });
 
