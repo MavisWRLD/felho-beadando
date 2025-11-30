@@ -116,21 +116,21 @@ async function seedPizzas() {
   const connection = await pool.getConnection();
   try {
     const pizzas = [
-      { name: 'Margherita', description: 'Paradicsomszósz, mozzarella, bazsalikom', price: 1200, image: '1. Margherita.png' },
-      { name: 'Quattro Formaggi', description: 'Négy fajta sajt', price: 1500, image: '2. Quattro Formaggi.png' },
-      { name: 'Pepperoni', description: 'Paradicsomszósz, mozzarella, pepperoni', price: 1300, image: '3. Pepperoni.png' },
-      { name: 'Carnivore', description: 'Szalonna, sonka, kolbász, hagyma', price: 1600, image: '4. Carnivore.png' },
-      { name: 'Vegetariana', description: 'Paradicsom, paprika, gomba, zöldségek', price: 1250, image: '5. Vegetariana.png' },
-      { name: 'Prosciutto e Rucola', description: 'Prosciutto, rukkola, parmezan', price: 1450, image: '6. Prosciutto e Rucola.png' },
-      { name: 'BBQ Chicken', description: 'BBQ szósz, csirke, lilahagyma, bacon', price: 1400, image: '7. BBQ Chicken.png' },
-      { name: 'Quattro Stagioni', description: 'Négy évszak: szalonna, gomba, tojás, olajbogyó', price: 1550, image: '8. Quattro Stagioni.png' },
-      { name: 'Calzone', description: 'Zárható: ricotta, sonka, mozzarella', price: 1350, image: '9. Calzone.png' },
-      { name: 'Spicy Diavola', description: 'Csípős: pepperoni, chilipaprika, garlic', price: 1300, image: '10. Spicy Diavola.png' },
-      { name: 'Seafood Deluxe', description: 'Garnéla, kagyló, tintahal, olívaolaj', price: 1800, image: '11. Seafood Deluxe.png' },
-      { name: 'Mushroom Paradise', description: 'Kiváló gombák', price: 1280, image: '12. Mushroom Paradise.png' },
-      { name: 'Hawaiian Surprise', description: 'Sonka, ananász, szalonna', price: 1400, image: '13. Hawaiian Surprise.png' },
-      { name: 'Truffle Deluxe', description: 'Fehér szarvasgomba, prosciutto, parmezan', price: 2000, image: '14. Truffle Deluxe.png' },
-      { name: 'Bianca', description: 'Fehér szósz, mozzarella, ricotta, spinát', price: 1150, image: '15. Bianca.png' }
+      { name: 'Margherita', description: 'Paradicsomszósz, mozzarella, bazsalikom', price: 1200, image: '1.-Margherita.png' },
+      { name: 'Quattro Formaggi', description: 'Négy fajta sajt', price: 1500, image: '2.-Quattro-Formaggi.png' },
+      { name: 'Pepperoni', description: 'Paradicsomszósz, mozzarella, pepperoni', price: 1300, image: '3.-Pepperoni.png' },
+      { name: 'Carnivore', description: 'Szalonna, sonka, kolbász, hagyma', price: 1600, image: '4.-Carnivore.png' },
+      { name: 'Vegetariana', description: 'Paradicsom, paprika, gomba, zöldségek', price: 1250, image: '5.-Vegetariana.png' },
+      { name: 'Prosciutto e Rucola', description: 'Prosciutto, rukkola, parmezan', price: 1450, image: '6.-Prosciutto-e-Rucola.png' },
+      { name: 'BBQ Chicken', description: 'BBQ szósz, csirke, lilahagyma, bacon', price: 1400, image: '7.-BBQ-Chicken.png' },
+      { name: 'Quattro Stagioni', description: 'Négy évszak: szalonna, gomba, tojás, olajbogyó', price: 1550, image: '8.-Quattro-Stagioni.png' },
+      { name: 'Calzone', description: 'Zárható: ricotta, sonka, mozzarella', price: 1350, image: '9.-Calzone.png' },
+      { name: 'Spicy Diavola', description: 'Csípős: pepperoni, chilipaprika, garlic', price: 1300, image: '10.-Spicy-Diavola.png' },
+      { name: 'Seafood Deluxe', description: 'Garnéla, kagyló, tintahal, olívaolaj', price: 1800, image: '11.-Seafood-Deluxe.png' },
+      { name: 'Mushroom Paradise', description: 'Kiváló gombák', price: 1280, image: '12.-Mushroom-Paradise.png' },
+      { name: 'Hawaiian Surprise', description: 'Sonka, ananász, szalonna', price: 1400, image: '13.-Hawaiian-Surprise.png' },
+      { name: 'Truffle Deluxe', description: 'Fehér szarvasgomba, prosciutto, parmezan', price: 2000, image: '14.-Truffle-Deluxe.png' },
+      { name: 'Bianca', description: 'Fehér szósz, mozzarella, ricotta, spinát', price: 1150, image: '15.-Bianca.png' }
     ];
 
     // Ellenőrzés: vannak-e már pizzák
