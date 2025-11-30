@@ -4,6 +4,8 @@
  */
 
 const express = require('express');
+const https = require('https');  // Add HTTPS module
+const fs = require('fs');        // Add FS module for reading certificates
 const cors = require('cors');
 const mysql = require('mysql2/promise');
 const AWS = require('aws-sdk');
@@ -13,7 +15,12 @@ const nodemailer = require('nodemailer');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 443; // Use 443 for HTTPS
+
+const options = {
+  key: fs.readFileSync(process.env.SSL_KEY_PATH || './ssl/privatekey.pem'),
+  cert: fs.readFileSync(process.env.SSL_CERT_PATH || './ssl/certificate.pem')
+};
 
 // Middleware
 app.use(cors());
@@ -335,8 +342,8 @@ async function sendOrderConfirmationEmail(email, customerName, orderId, items, t
 // ============================================
 // Szerver indítása
 // ============================================
-app.listen(PORT, async () => {
-  console.log(`🍕 Pizzázó szerver indult: http://localhost:${PORT}`);
+https.createServer(options, app).listen(PORT, async () => {
+  console.log(`🍕 Pizzázó HTTPS szerver indult: https://localhost:${PORT}`);
   
   // Adatbázis inicializálása
   await initializeDatabase();
