@@ -166,7 +166,7 @@
             // Prepare order data
             const items = Object.values(cart).map(item => ({
                 pizza_id: item.id,
-                name: item.name,
+                pizza_name: item.name,
                 quantity: item.quantity,
                 price: item.price
             }));
