@@ -660,6 +660,10 @@ textarea.form-control {
         padding: var(--space-16);
     }
 
+
+
+}
+
     .pizza-image-container {
     width: 100%;
     height: 200px;
@@ -672,6 +676,4 @@ textarea.form-control {
     height: 100%;
     object-fit: cover;
     object-position: center;
-}
-
 }
