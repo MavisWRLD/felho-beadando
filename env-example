@@ -1,0 +1,26 @@
+# Pizzázó Rendelési Rendszer - Environment Config
+# .env fájl - közvetlen az adataid
+
+# AWS Credentials
+AWS_ACCESS_KEY_ID=AKIAULDGQ274HFEIJWMK
+AWS_SECRET_ACCESS_KEY=[IDE JÖHET A TITKOS KULCS - NEM PÚBLIKUS!]
+AWS_REGION=eu-west-1
+
+# AWS S3 Bucket
+S3_BUCKET=gpozx9-bucket-ap-p1azddtqh9911tcc79gxszy9np9moeuw1a-s3alias
+
+# MySQL / RDS
+DB_HOST=gpozx9-db.cxiyki6c4sp8.eu-west-1.rds.amazonaws.com
+DB_USER=GPOZX9
+DB_PASSWORD=Defuser123
+DB_NAME=pizzazo
+
+# Email (opcionális - rendelés megerősítéshez)
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+
+# Server
+PORT=3000
+NODE_ENV=production
